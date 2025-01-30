@@ -20,10 +20,6 @@ class YodelrService(Yodelr):
         self.__posts.append(Post(user_name, post_text, timestamp))
 
     def delete_user(self, user_name: str) -> None:
-        if not self.user_exists(user_name):
-            # TODO throw exception or something
-            return
-        
         self.__users.remove(user_name)
 
         for post in self.__posts:
@@ -32,10 +28,6 @@ class YodelrService(Yodelr):
 
     
     def get_posts_for_user(self, user_name: str):
-        if not self.user_exists(user_name):
-            # TODO throw exception or something OR return empty list
-            return
-
         postsTexts = []
 
         for post in self.__posts:

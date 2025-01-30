@@ -38,6 +38,9 @@ def add_post():
 
     if not user_name or not post_text:
         return jsonify({"error": "user_name and post_text are required"}), 400
+    
+    if not yodelrService.user_exists(user_name):
+        return jsonify({"error": "User does not exist"}), 400
 
     current_timestamp = int(time.time())    
     yodelrService.add_post(user_name, post_text, current_timestamp)
@@ -54,7 +57,7 @@ def delete_user():
         return jsonify({"error": "user_name is required"}), 400
     
     if not yodelrService.user_exists(user_name):
-        return jsonify({"error": "That user_name does not exist"}), 400
+        return jsonify({"error": "User does not exist"}), 400
     
     yodelrService.delete_user(user_name)
 
