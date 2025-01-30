@@ -12,6 +12,7 @@
 
 # How to create and deactivate a python virtual environment via your command line
 This assumes that you have a unix like system.
+
 1. Assuming you use a unix like system, ensure python3 and python3-venv is installed `apt-get install python3 python3-venv`
 2. Create a new python virtual environment `python3 -m venv yodelrenv`
 3. Activate your new virtual environment `source yodelrenv/bin/activate`
