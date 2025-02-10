@@ -1,8 +1,8 @@
-from yodelr import Yodelr
+from potato import Potato
 from post import Post
 import re
 
-class YodelrService(Yodelr):
+class PotatoService(Potato):
     __users = []
     __posts = []
     __topicPattern = re.compile(r'#([0-9a-zA-Z_]+)')

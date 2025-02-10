@@ -1,7 +1,7 @@
 import logging
 from flask import Flask, request, jsonify
 from post import Post
-from yodelrservice import YodelrService
+from potatoservice import PotatoService
 import time
 
 logging.basicConfig(level=logging.INFO)
@@ -9,7 +9,7 @@ logger = logging.getLogger("flask-app")
 
 app = Flask(__name__)
 app.logger = logger
-yodelrService = YodelrService()
+potatoService = PotatoService()
 
 logger.info("Server starting...")
 
@@ -22,10 +22,10 @@ def add_user():
     if not user_name:
         return jsonify({"error": "user_name is required"}), 400
     
-    if yodelrService.user_exists(user_name):
+    if potatoService.user_exists(user_name):
         return jsonify({"error": "That user_name is already taken"}), 400
     
-    yodelrService.add_user(user_name)
+    potatoService.add_user(user_name)
 
     return jsonify({"message": "User added successfully"}), 201
 
@@ -39,11 +39,11 @@ def add_post():
     if not user_name or not post_text:
         return jsonify({"error": "user_name and post_text are required"}), 400
     
-    if not yodelrService.user_exists(user_name):
+    if not potatoService.user_exists(user_name):
         return jsonify({"error": "User does not exist"}), 400
 
     current_timestamp = int(time.time())    
-    yodelrService.add_post(user_name, post_text, current_timestamp)
+    potatoService.add_post(user_name, post_text, current_timestamp)
 
     return jsonify({"message": "Post added successfully"}), 201
 
@@ -56,10 +56,10 @@ def delete_user():
     if not user_name:
         return jsonify({"error": "user_name is required"}), 400
     
-    if not yodelrService.user_exists(user_name):
+    if not potatoService.user_exists(user_name):
         return jsonify({"error": "User does not exist"}), 400
     
-    yodelrService.delete_user(user_name)
+    potatoService.delete_user(user_name)
 
     return jsonify({"message": "User deleted successfully"}), 200
 
@@ -71,7 +71,7 @@ def get_posts_for_user():
     if not user_name:
         return jsonify({"error": "user_name is required"}), 400
     
-    posts = yodelrService.get_posts_for_user(user_name)
+    posts = potatoService.get_posts_for_user(user_name)
 
     return jsonify({"posts": posts}), 200
 
@@ -83,7 +83,7 @@ def get_posts_for_topic():
     if not topic:
         return jsonify({"error": "topic is required"}), 400
     
-    posts = yodelrService.get_posts_for_topic(topic)
+    posts = potatoService.get_posts_for_topic(topic)
 
     return jsonify({"posts": posts}), 200
 
@@ -96,7 +96,7 @@ def get_trending_topics():
     if not from_timestamp or not to_timestamp:
         return jsonify({"error": "from_timestamp and to_timestamp are required"}), 400
     
-    trending_topics = yodelrService.get_trending_topics(int(from_timestamp), int(to_timestamp))
+    trending_topics = potatoService.get_trending_topics(int(from_timestamp), int(to_timestamp))
 
     return jsonify({"trending_topics": trending_topics}), 200
 
